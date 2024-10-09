@@ -3,13 +3,16 @@ package net.cfl.tiendacosas.servicios.producto;
 import java.util.List;
 
 import net.cfl.tiendacosas.modelo.Producto;
+import net.cfl.tiendacosas.request.ActualizaProductoRequest;
+import net.cfl.tiendacosas.request.AgregaProductoRequest;
 
 public interface IProductoServicio {
-	Producto agregaProducto(Producto producto);
+	Producto agregaProducto(AgregaProductoRequest request);
 	Producto listaProductoPorId(Long id);
 	
 	void borrarProducto(Long id);
-	void actualizaProducto(Producto producto, Long id);
+	Producto actualizaProducto(ActualizaProductoRequest request, Long id);
+	
 	
 	List<Producto> ListarProductos();
 	List<Producto> ListarPorCategoria(String categoria);
