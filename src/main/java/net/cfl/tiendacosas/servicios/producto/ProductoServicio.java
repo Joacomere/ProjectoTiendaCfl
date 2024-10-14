@@ -64,8 +64,10 @@ public class ProductoServicio implements IProductoServicio{
 	}
 
 	@Override
-	public Producto actualizaProducto(ActualizaProductoRequest request, Long id) {
-		return null;
+	public Producto actualizaProducto(ActualizaProductoRequest request, Long productoId) {
+		return productoRepositorio.findById(productoId).map(productoExistente -> actualizaProductoExistente(productoExistente, request))
+				.map(productoRepositorio::save)
+				.orElseThrow(() -> new ProductoNoEncontradoEx("prodcuto no encontrado"));
 		
 	}
 	
