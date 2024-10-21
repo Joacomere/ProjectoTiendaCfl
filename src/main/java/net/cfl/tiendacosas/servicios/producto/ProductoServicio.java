@@ -1,12 +1,13 @@
 package net.cfl.tiendacosas.servicios.producto;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import net.cfl.tiendacosas.excepciones.ProductoNoEncontradoEx;
+import net.cfl.tiendacosas.excepciones.RecursoNoEncontradoEx;
 import net.cfl.tiendacosas.modelo.Categoria;
 import net.cfl.tiendacosas.modelo.Producto;
 import net.cfl.tiendacosas.repositorio.CategoriaRepositorio;
@@ -27,7 +28,7 @@ public class ProductoServicio implements IProductoServicio{
 		 // Comprobar que exista la categoria en la base de datos. Si existe, la establecemos
 		 // como categoria del producto. 
 		 // Si no existe , la guardamos en la base de datos y la establecemos como categoria del producto 
-		 Categoria categoria = Optional.ofNullable(categoriaRepositorio.findByAtCategoria(request.getCategoria().getNombre()))
+		 Categoria categoria = Optional.ofNullable(categoriaRepositorio.findByNombre(request.getCategoria().getNombre()))
 		 	.orElseGet(() -> {
 		 		Categoria nuevaCategoria = new Categoria(request.getCategoria().getNombre());
 		 		return categoriaRepositorio.save(nuevaCategoria);
@@ -53,13 +54,13 @@ public class ProductoServicio implements IProductoServicio{
 	public Producto listaProductoPorId(Long id) {
 		
 		return productoRepositorio.findById(id)
-				.orElseThrow(()-> new ProductoNoEncontradoEx("Producto no encontrado"));
+				.orElseThrow(()-> new RecursoNoEncontradoEx("Producto no encontrado"));
 	}
 
 	@Override
 	public void borrarProducto(Long id) {
 		productoRepositorio.findById(id).ifPresentOrElse(productoRepositorio::delete,
-				() -> new ProductoNoEncontradoEx("Producto no encontrado"));
+				() -> new RecursoNoEncontradoEx("Producto no encontrado"));
 		
 	}
 
@@ -67,7 +68,7 @@ public class ProductoServicio implements IProductoServicio{
 	public Producto actualizaProducto(ActualizaProductoRequest request, Long productoId) {
 		return productoRepositorio.findById(productoId).map(productoExistente -> actualizaProductoExistente(productoExistente, request))
 				.map(productoRepositorio::save)
-				.orElseThrow(() -> new ProductoNoEncontradoEx("prodcuto no encontrado"));
+				.orElseThrow(() -> new RecursoNoEncontradoEx("prodcuto no encontrado"));
 		
 	}
 	
@@ -77,7 +78,7 @@ public class ProductoServicio implements IProductoServicio{
 		productoExistente.setPrecio(request.getPrecio());
 		productoExistente.setDescripcion(request.getDescripcion());
 		productoExistente.setStock(request.getStock());
-		Categoria categoria = categoriaRepositorio.findByAtCategoria(request.getCategoria().getNombre());
+		Categoria categoria = categoriaRepositorio.findByNombre(request.getCategoria().getNombre());
 		productoExistente.setCategoria(categoria);
 		
 		return productoExistente;
@@ -90,7 +91,7 @@ public class ProductoServicio implements IProductoServicio{
 
 	@Override
 	public List<Producto> ListarPorCategoria(String categoria) {
-		return productoRepositorio.findByAtCategoria(categoria);
+		return productoRepositorio.findByCategoriaNombre(categoria);
 	}
 
 	@Override
@@ -100,7 +101,7 @@ public class ProductoServicio implements IProductoServicio{
 
 	@Override
 	public List<Producto> ListarPorMarcaYCategoria(String marca, String categoria) {
-		return productoRepositorio.findByMarcaYAtCategoria(marca, categoria);
+		return productoRepositorio.findByMarcaAndCategoriaNombre(marca, categoria);
 	}
 
 	@Override
@@ -110,12 +111,12 @@ public class ProductoServicio implements IProductoServicio{
 
 	@Override
 	public List<Producto> ListarPorNombreYMarca(String nombre, String marca) {
-		return productoRepositorio.findByNombreYMarca(nombre, marca);
+		return productoRepositorio.findByNombreAndMarca(nombre, marca);
 	}
 
 	@Override
 	public Long contarProductosPorNombreYMarca(String nombre, String marca) {
-		return productoRepositorio.countByNombreYMarca(nombre, marca);
+		return productoRepositorio.countByNombreAndMarca(nombre, marca);
 	}
 
 }

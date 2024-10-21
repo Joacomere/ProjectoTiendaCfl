@@ -6,7 +6,7 @@ import net.cfl.tiendacosas.modelo.Categoria;
 
 
 public interface CategoriaRepositorio extends JpaRepository<Categoria, Long> {
-	Categoria findByAtCategoria(String nombre);
+	//Categoria findByAtCategoria(String nombre);
 	Categoria findByNombre(String nombre);
 	boolean existsByNombre(String nombre);
 }
