@@ -58,7 +58,7 @@ public class ProductoControlador {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiRespuesta(e.getMessage(), null));
 		}
 	}
-	@DeleteMapping("/producto/{productoId/borrar")
+	@DeleteMapping("/producto/{productoId}/borrar")
 	public ResponseEntity<ApiRespuesta> borrarProducto(@PathVariable Long productoId){
 		try {
 			productoServicio.borrarProducto(productoId);

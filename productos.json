@@ -1,0 +1,32 @@
+{
+	"nombre" : "TV",
+	    "marca" : "Apple",
+	    "precio" : "200000",
+	    "categoria" : "electronica",
+	    "descripcion" : "TV Smart 70 pulgadas",
+	    "stock" : "20"
+}
+{
+	"nombre" : "TV",
+	    "marca" : "Sammsung",
+	    "precio" : "170000",
+	    "categoria" : "electronica",
+	    "descripcion" : "TV Smart 50 pulgadas",
+	    "stock" : "20"
+}
+{
+	"nombre" : "telefono",
+	    "marca" : "Motorola",
+	    "precio" : "160000",
+	    "categoria" : "electronica",
+	    "descripcion" : "20 gigas",
+	    "stock" : "20"
+}
+{
+	"nombre" : "telefono",
+	    "marca" : "Samsung",
+	    "precio" : "230000",
+	    "categoria" : "electronica",
+	    "descripcion" : "50 gigas",
+	    "stock" : "20"
+}
