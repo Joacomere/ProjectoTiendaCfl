@@ -57,8 +57,8 @@ public class ImagenServicio implements IImagenServicio {
 				imagenRepositorio.save(imagenGuardada);
 				
 				ImagenDto imagenDto = new ImagenDto();
-				imagenDto.setImagenId(imagenGuardada.getId());
-				imagenDto.setImagenNombre(imagenGuardada.getArchivoNombre());
+				imagenDto.setId(imagenGuardada.getId());
+				imagenDto.setArchivoNombre(imagenGuardada.getArchivoNombre());
 				imagenDto.setDescargaUrl(imagenGuardada.getDescargaUrl());
 				imagenesGuardadasDto.add(imagenDto);
 				

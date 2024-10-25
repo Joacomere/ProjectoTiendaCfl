@@ -4,13 +4,18 @@ import java.util.List;
 
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import net.cfl.tiendacosas.dto.ImagenDto;
+import net.cfl.tiendacosas.dto.ProductoDto;
 import net.cfl.tiendacosas.excepciones.RecursoNoEncontradoEx;
 import net.cfl.tiendacosas.modelo.Categoria;
+import net.cfl.tiendacosas.modelo.Imagen;
 import net.cfl.tiendacosas.modelo.Producto;
 import net.cfl.tiendacosas.repositorio.CategoriaRepositorio;
+import net.cfl.tiendacosas.repositorio.ImagenRepositorio;
 import net.cfl.tiendacosas.repositorio.ProductoRepositorio;
 import net.cfl.tiendacosas.request.ActualizaProductoRequest;
 import net.cfl.tiendacosas.request.AgregaProductoRequest;
@@ -21,6 +26,8 @@ public class ProductoServicio implements IProductoServicio{
 	
 	private final ProductoRepositorio productoRepositorio;
 	private final CategoriaRepositorio categoriaRepositorio;
+	private final ImagenRepositorio imagenRepositorio;
+	private final ModelMapper modelMapper;
 	
 	@Override
 	public Producto agregaProducto(AgregaProductoRequest request) {
@@ -118,5 +125,16 @@ public class ProductoServicio implements IProductoServicio{
 	public Long contarProductosPorNombreYMarca(String nombre, String marca) {
 		return productoRepositorio.countByNombreAndMarca(nombre, marca);
 	}
-
+	@Override
+	public List<ProductoDto> traeProductosConvertidos(List<Producto> productos){
+		return productos.stream().map(this :: convertirAProductoDto).toList();
+		}
+	@Override
+	public ProductoDto convertirAProductoDto(Producto producto) {
+		ProductoDto productoDto = modelMapper.map(producto, ProductoDto.class);
+		List<Imagen> imagenes = imagenRepositorio.findByProductoId(producto.getId());
+		List<ImagenDto> imagenesDto = imagenes.stream().map(imagen -> modelMapper.map(imagenes, ImagenDto.class)).toList();
+		productoDto.setImagenes(imagenesDto);
+		return productoDto;
+	}
 }
