@@ -74,7 +74,7 @@ public class ProductoControlador {
 		}
 	}
 	@GetMapping("/por/marca-y-nombre")
-	public ResponseEntity<ApiRespuesta> listarPorMarcaYNombre(@RequestBody String marcaNombre,@RequestBody String productoNombre){
+	public ResponseEntity<ApiRespuesta> listarPorMarcaYNombre(@RequestParam String marcaNombre,@RequestParam String productoNombre){
 		try {
 			List<Producto> productos = productoServicio.ListarPorNombreYMarca(productoNombre, marcaNombre);
 			if(productos.isEmpty()) {
@@ -87,7 +87,7 @@ public class ProductoControlador {
 		}
 	}
 	@GetMapping("/por/marca-y-categoria")
-	public ResponseEntity<ApiRespuesta> listarPorMarcaYCategoria(@RequestBody String marcaNombre,@RequestBody String categoriaNombre){
+	public ResponseEntity<ApiRespuesta> listarPorMarcaYCategoria(@RequestParam String marcaNombre,@RequestParam String categoriaNombre){
 		try {
 			List<Producto> productos = productoServicio.ListarPorMarcaYCategoria(marcaNombre, categoriaNombre);
 			if(productos.isEmpty()) {
@@ -100,7 +100,7 @@ public class ProductoControlador {
 		}
 	}
 	@GetMapping("/por/{productoNombre}/producto")
-	public ResponseEntity<ApiRespuesta> listarPorNombre(@RequestBody String productoNombre){
+	public ResponseEntity<ApiRespuesta> listarPorNombre(@PathVariable String productoNombre){
 		try {
 			List<Producto> productos = productoServicio.ListarPorNombre(productoNombre);
 			if(productos.isEmpty()) {
@@ -113,7 +113,7 @@ public class ProductoControlador {
 		}
 	}
 	@GetMapping("/por/{marcaNombre}/producto")
-	public ResponseEntity<ApiRespuesta> listarPorMarca(@RequestBody String marcaNombre){
+	public ResponseEntity<ApiRespuesta> listarPorMarca(@PathVariable String marcaNombre){
 		try {
 			List<Producto> productos = productoServicio.ListarPorMarca(marcaNombre);
 			if(productos.isEmpty()) {
@@ -126,7 +126,7 @@ public class ProductoControlador {
 		}
 	}
 	@GetMapping("/producto/{categoriaNombre}/todos/productos")
-	public ResponseEntity<ApiRespuesta> listarPorCategoria(@RequestBody String categoriaNombre){
+	public ResponseEntity<ApiRespuesta> listarPorCategoria(@PathVariable String categoriaNombre){
 		try {
 			List<Producto> productos = productoServicio.ListarPorCategoria(categoriaNombre);
 			if(productos.isEmpty()) {

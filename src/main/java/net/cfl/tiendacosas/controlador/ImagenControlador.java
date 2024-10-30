@@ -49,7 +49,7 @@ public class ImagenControlador {
 		
 	}
 	@GetMapping("/imagen/descarga/{imagenId}")
-	public ResponseEntity<Resource> descargaImagen(@RequestParam Long productoId,@RequestParam Long imagenId)throws SQLException{
+	public ResponseEntity<Resource> descargaImagen(@PathVariable Long imagenId)throws SQLException{
 		Imagen imagen = imagenServicio.listaImagenPorId(imagenId);
 		ByteArrayResource recurso = new ByteArrayResource(imagen.getImagen().getBytes(1, (int)imagen.getImagen().length()));
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(imagen.getArchivoTipo()))

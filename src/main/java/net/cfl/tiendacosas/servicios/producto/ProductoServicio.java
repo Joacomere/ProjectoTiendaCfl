@@ -133,7 +133,7 @@ public class ProductoServicio implements IProductoServicio{
 	public ProductoDto convertirAProductoDto(Producto producto) {
 		ProductoDto productoDto = modelMapper.map(producto, ProductoDto.class);
 		List<Imagen> imagenes = imagenRepositorio.findByProductoId(producto.getId());
-		List<ImagenDto> imagenesDto = imagenes.stream().map(imagen -> modelMapper.map(imagenes, ImagenDto.class)).toList();
+		List<ImagenDto> imagenesDto = imagenes.stream().map(imagen -> modelMapper.map(imagen, ImagenDto.class)).toList();
 		productoDto.setImagenes(imagenesDto);
 		return productoDto;
 	}
