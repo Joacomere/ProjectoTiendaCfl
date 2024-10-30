@@ -41,8 +41,8 @@ public class CarritoControlador {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiRespuesta(e.getMessage(), null));
 		}
 	}
-	
-	public ResponseEntity<ApiRespuesta> calculaMontoTotal(Long carritoId){
+	@GetMapping("/{carritoId}/carrito/monto-total")
+	public ResponseEntity<ApiRespuesta> calculaMontoTotal(@PathVariable Long carritoId){
 		try {
 			BigDecimal montoTotal = carritoServicio.traePrecioTotal(carritoId);
 			return ResponseEntity.ok(new ApiRespuesta("Exito!", montoTotal));

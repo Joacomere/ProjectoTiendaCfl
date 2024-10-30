@@ -56,7 +56,7 @@ public class CarritoItemServicio implements ICarritoItemServicio {
 	}
 
 	@Override
-	public void aactualizaCantidadItems(Long carritoId, Long productoId, int cantidad) {
+	public void actualizaCantidadItems(Long carritoId, Long productoId, int cantidad) {
 		Carrito carrito = carritoServicio.traeCarrito(carritoId);
 		carrito.getCarritoItems().stream().filter(item -> item.getProducto().getId().equals(productoId)).findFirst()
 		.ifPresent(item -> {
