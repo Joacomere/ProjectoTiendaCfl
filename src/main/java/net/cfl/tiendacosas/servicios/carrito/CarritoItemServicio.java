@@ -69,7 +69,7 @@ public class CarritoItemServicio implements ICarritoItemServicio {
 		carritoRepositorio.save(carrito);	
 	}
 	@Override
-	public CarritoItem traeCarritoItem(Long carritoId, long productoId) {
+	public CarritoItem traeCarritoItem(Long carritoId, Long productoId) {
 		Carrito carrito = carritoServicio.traeCarrito(carritoId);
 		return carrito.getCarritoItems().stream()
 				.filter(item -> item.getProducto().getId().equals(productoId)).findFirst()

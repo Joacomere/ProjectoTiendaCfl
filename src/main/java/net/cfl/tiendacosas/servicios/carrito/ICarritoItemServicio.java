@@ -6,5 +6,5 @@ public interface ICarritoItemServicio {
 	void agregaItemAlCarrito(Long carritoId, Long productoId, int cantidad);
 	void quitaItemDelCarrito(Long carritoId, Long productoId);
 	void actualizaCantidadItems(Long carritoId, Long productoId, int cantidad);
-	CarritoItem traeCarritoItem(Long carritoId, long productoId);
+	CarritoItem traeCarritoItem(Long carritoId, Long productoId);
 }
