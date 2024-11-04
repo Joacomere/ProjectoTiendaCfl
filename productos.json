@@ -1,32 +1,48 @@
 {
 	"nombre" : "TV",
-	    "marca" : "Apple",
-	    "precio" : "200000",
+	    "marca" : "APPLE",
+	    "precio" : "200",
 	    "categoria" : "electronica",
 	    "descripcion" : "TV Smart 70 pulgadas",
 	    "stock" : "20"
 }
 {
 	"nombre" : "TV",
-	    "marca" : "Sammsung",
-	    "precio" : "170000",
+	    "marca" : "SAMSUNG",
+	    "precio" : "170",
 	    "categoria" : "electronica",
 	    "descripcion" : "TV Smart 50 pulgadas",
 	    "stock" : "20"
 }
 {
 	"nombre" : "telefono",
-	    "marca" : "Motorola",
-	    "precio" : "160000",
+	    "marca" : "MOTOROLA",
+	    "precio" : "160",
 	    "categoria" : "electronica",
 	    "descripcion" : "20 gigas",
 	    "stock" : "20"
 }
 {
 	"nombre" : "telefono",
-	    "marca" : "Samsung",
-	    "precio" : "230000",
+	    "marca" : "SAMSUNG",
+	    "precio" : "230",
 	    "categoria" : "electronica",
 	    "descripcion" : "50 gigas",
+	    "stock" : "20"
+}
+{
+	"nombre" : "heladera",
+	    "marca" : "SAMSUNG",
+	    "precio" : "400",
+	    "categoria" : "electrodomestico",
+	    "descripcion" : "con freezer",
+	    "stock" : "20"
+}
+{
+	"nombre" : "lavarropa",
+	    "marca" : "DREAM",
+	    "precio" : "230",
+	    "categoria" : "electrodomestico",
+	    "descripcion" : "lavado turbo",
 	    "stock" : "20"
 }

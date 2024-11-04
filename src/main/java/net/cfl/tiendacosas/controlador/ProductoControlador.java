@@ -112,8 +112,8 @@ public class ProductoControlador {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiRespuesta(e.getMessage(), null));
 		}
 	}
-	@GetMapping("/por/{marcaNombre}/producto")
-	public ResponseEntity<ApiRespuesta> listarPorMarca(@PathVariable String marcaNombre){
+	@GetMapping("/por/marca")
+	public ResponseEntity<ApiRespuesta> listarPorMarca(@RequestParam String marcaNombre){
 		try {
 			List<Producto> productos = productoServicio.ListarPorMarca(marcaNombre);
 			if(productos.isEmpty()) {

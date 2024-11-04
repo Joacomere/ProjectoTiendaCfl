@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.cfl.tiendacosas.excepciones.RecursoNoEncontradoEx;
 import net.cfl.tiendacosas.modelo.Carrito;
@@ -24,7 +25,7 @@ public class CarritoServicio implements ICarritoServicio{
 		carrito.setCostoTotal(montoTotal);
 		return carritoRepositorio.save(carrito);
 	}
-
+	@Transactional //Permite la ejecucuion en bloque de las consultas sql
 	@Override
 	public void limpiaCarrito(Long id) {
 		Carrito carrito = traeCarrito(id);

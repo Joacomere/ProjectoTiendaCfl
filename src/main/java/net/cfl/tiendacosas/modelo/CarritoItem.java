@@ -3,6 +3,8 @@ package net.cfl.tiendacosas.modelo;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +33,7 @@ public class CarritoItem {
 	private int cantidad;
 	private BigDecimal precioUni;
 	private BigDecimal precioTot;
-	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "carrito_id")
 	private Carrito carrito;
