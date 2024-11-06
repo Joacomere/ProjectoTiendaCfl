@@ -25,7 +25,7 @@ public class Usuario {
 	private Long id;
 	private String usuarioNombre;
 	private String usuarioApellido;
-	private String correoElectronico;
+	private String email;
 	private String pwd;
 	
 	@OneToOne(mappedBy= "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
