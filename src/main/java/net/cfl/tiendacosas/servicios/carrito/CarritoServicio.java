@@ -1,6 +1,7 @@
 package net.cfl.tiendacosas.servicios.carrito;
 
 import java.math.BigDecimal;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
@@ -48,5 +49,10 @@ public class CarritoServicio implements ICarritoServicio{
 		Long nuevoCarritoId = generadorId.incrementAndGet();
 		nuevoCarrito.setId(nuevoCarritoId);
 		return carritoRepositorio.save(nuevoCarrito).getId();
+	}
+	
+	@Override
+	public Carrito traeCarritoPorUsuarioId(Long usuarioId) {
+		return carritoRepositorio.findByUsuarioId(usuarioId);
 	}
 }
