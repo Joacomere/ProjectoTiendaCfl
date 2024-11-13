@@ -1,9 +1,12 @@
 package net.cfl.tiendacosas.servicios.usuario;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import net.cfl.tiendacosas.excepciones.RecursoNoEncontradoEx;
+import net.cfl.tiendacosas.excepciones.UsuarioExistenteEx;
 import net.cfl.tiendacosas.modelo.Usuario;
 import net.cfl.tiendacosas.repositorio.UsuarioRepositorio;
 import net.cfl.tiendacosas.request.ActualizaUsuarioReq;
@@ -21,8 +24,16 @@ public class UsuarioServicio implements IUsuarioServicio {
 
 	@Override
 	public Usuario crearUsuario(AgregaUsuarioReq request) {
-		
-		return null;
+		return Optional.of(request)
+				.filter(usuario -> !usuarioRepositorio.existsByEmail(request.getEmail()))
+				.map(req -> {
+					Usuario usuario = new Usuario();
+					usuario.setEmail(request.getEmail());
+					usuario.setPwd(request.getPwd());
+					usuario.setUsuarioNombre(request.getUsuarioNombre());
+					usuario.setUsuarioApellido(request.getUsuarioApellido());
+					return usuarioRepositorio.save(usuario);
+				}).orElseThrow(() ->new UsuarioExistenteEx("El usuario" + request.getEmail() + "ya existe"));
 	}
 
 	@Override
