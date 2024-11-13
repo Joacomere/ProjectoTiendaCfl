@@ -1,6 +1,7 @@
 package net.cfl.tiendacosas.controlador;
 
 import java.util.List;
+import net.cfl.tiendacosas.dto.OrdenDto;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class OrdenControlador {
 	@GetMapping("/{ordenId}/orden")
 	public ResponseEntity<ApiRespuesta> traeOrdenPorId(@PathVariable Long ordenId){
 		try {
-			Orden orden = ordenServicio.traeOrden(ordenId);
+			OrdenDto orden = ordenServicio.traeOrden(ordenId);
 			return ResponseEntity.ok(new ApiRespuesta("Exito",orden));
 		} catch (RecursoNoEncontradoEx e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiRespuesta("Ooops!", e.getMessage()));
@@ -47,7 +48,7 @@ public class OrdenControlador {
 	@GetMapping("/{usuarioId}/orden")
 	public ResponseEntity<ApiRespuesta> traeOrdenUsuario(@PathVariable Long usuarioId){
 		try {
-			List<Orden> orden = ordenServicio.traeUsuarioOrdenes(usuarioId);
+			List<OrdenDto> orden = ordenServicio.traeUsuarioOrdenes(usuarioId);
 			return ResponseEntity.ok(new ApiRespuesta("Exito",orden));
 		} catch (RecursoNoEncontradoEx e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiRespuesta("Ooops!", e.getMessage()));

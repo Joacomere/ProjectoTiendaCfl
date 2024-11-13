@@ -6,10 +6,12 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import net.cfl.tiendacosas.dto.OrdenDto;
 import net.cfl.tiendacosas.enums.OrdenEstado;
 import net.cfl.tiendacosas.excepciones.RecursoNoEncontradoEx;
 import net.cfl.tiendacosas.modelo.Carrito;
@@ -25,6 +27,7 @@ public class OrdenServicio implements IOrdenServicio {
 	private final OrdenRepositorio ordenRepositorio;
 	private final ProductoRepositorio productoRepositorio;
 	private final CarritoServicio carritoServicio;
+	private final ModelMapper modelMapper;
 	
 	@Transactional
 	@Override
@@ -51,7 +54,7 @@ public class OrdenServicio implements IOrdenServicio {
 	
 	private Orden crearOrden(Carrito carrito) {
 		Orden orden = new Orden();
-		//Establecer el ususario
+		//Establecer el usuario
 		orden.setOrdenEstado(OrdenEstado.PENDIENTE);
 		orden.setOrdenFecha(LocalDate.now());
 		return orden;
@@ -63,11 +66,16 @@ public class OrdenServicio implements IOrdenServicio {
 	}
 
 	@Override
-	public Orden traeOrden(Long ordenId) {
-		return ordenRepositorio.findById(ordenId).orElseThrow(() -> new RecursoNoEncontradoEx("Orden no encontrada"));
+	public OrdenDto traeOrden(Long ordenId) {
+		return ordenRepositorio.findById(ordenId).map(this :: convertirAOrdenDto)
+		.orElseThrow(() -> new RecursoNoEncontradoEx("Orden no encontrada"));
 	}
 	@Override
-	public List<Orden> traeUsuarioOrdenes(Long usuarioId){
-		return ordenRepositorio.findByUsuarioId(usuarioId);
+	public List<OrdenDto> traeUsuarioOrdenes(Long usuarioId){
+		List<Orden> ordenes = ordenRepositorio.findByUsuarioId(usuarioId);
+		return ordenes.stream().map(this :: convertirAOrdenDto).toList();
+	}
+	private OrdenDto convertirAOrdenDto(Orden orden) {
+		return modelMapper.map(orden, OrdenDto.class);
 	}
 }
