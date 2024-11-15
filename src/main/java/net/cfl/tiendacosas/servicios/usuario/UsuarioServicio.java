@@ -2,9 +2,11 @@ package net.cfl.tiendacosas.servicios.usuario;
 
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import net.cfl.tiendacosas.dto.UsuarioDto;
 import net.cfl.tiendacosas.excepciones.RecursoNoEncontradoEx;
 import net.cfl.tiendacosas.excepciones.UsuarioExistenteEx;
 import net.cfl.tiendacosas.modelo.Usuario;
@@ -16,6 +18,7 @@ import net.cfl.tiendacosas.request.AgregaUsuarioReq;
 @RequiredArgsConstructor
 public class UsuarioServicio implements IUsuarioServicio {
 	private final UsuarioRepositorio usuarioRepositorio;
+	private final ModelMapper modelMapper;
 
 	@Override
 	public Usuario traeUsuarioPorId(Long usuarioId) {
@@ -51,6 +54,10 @@ public class UsuarioServicio implements IUsuarioServicio {
 			throw new RecursoNoEncontradoEx("Usuario no encontrado!");
 		});
 		
+	}
+	@Override
+	public UsuarioDto convertirAUsuarioDto(Usuario usuario) {
+		return modelMapper.map(usuario, UsuarioDto.class);
 	}
 
 }

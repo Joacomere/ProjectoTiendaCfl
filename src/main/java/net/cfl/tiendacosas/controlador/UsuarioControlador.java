@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import net.cfl.tiendacosas.dto.UsuarioDto;
 import net.cfl.tiendacosas.excepciones.RecursoNoEncontradoEx;
 import net.cfl.tiendacosas.excepciones.UsuarioExistenteEx;
 import net.cfl.tiendacosas.modelo.Usuario;
@@ -31,7 +32,8 @@ public class UsuarioControlador {
 	public ResponseEntity<ApiRespuesta> traeUsuario(@PathVariable Long usuarioId){
 		try {
 			Usuario usuario = usuarioServicio.traeUsuarioPorId(usuarioId);
-			return ResponseEntity.ok(new ApiRespuesta("Exito",usuario));
+			UsuarioDto usuarioDto = usuarioServicio.convertirAUsuarioDto(usuario);
+			return ResponseEntity.ok(new ApiRespuesta("Exito",usuarioDto));
 		} catch (RecursoNoEncontradoEx e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiRespuesta(e.getMessage(),null));
 		}
@@ -40,7 +42,8 @@ public class UsuarioControlador {
 	public ResponseEntity<ApiRespuesta> creaUsuario(@RequestBody AgregaUsuarioReq request){
 		try {
 			Usuario usuario = usuarioServicio.crearUsuario(request);
-			return ResponseEntity.ok(new ApiRespuesta("Exito",usuario));
+			UsuarioDto usuarioDto = usuarioServicio.convertirAUsuarioDto(usuario);
+			return ResponseEntity.ok(new ApiRespuesta("Exito",usuarioDto));
 		} catch (UsuarioExistenteEx e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiRespuesta(e.getMessage(), null));
 		}
@@ -49,7 +52,8 @@ public class UsuarioControlador {
 	public ResponseEntity<ApiRespuesta> actualizaUsuario(@RequestBody ActualizaUsuarioReq request,@PathVariable Long usuarioId){
 		try {
 			Usuario usuario = usuarioServicio.actualizarUsuario(request, usuarioId);
-			return ResponseEntity.ok(new ApiRespuesta("Usuario actualizado", usuario));
+			UsuarioDto usuarioDto = usuarioServicio.convertirAUsuarioDto(usuario);
+			return ResponseEntity.ok(new ApiRespuesta("Usuario actualizado", usuarioDto));
 		} catch (RecursoNoEncontradoEx e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiRespuesta(e.getMessage(),null));
 		}
