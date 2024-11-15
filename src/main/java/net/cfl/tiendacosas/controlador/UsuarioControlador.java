@@ -54,11 +54,11 @@ public class UsuarioControlador {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiRespuesta(e.getMessage(),null));
 		}
 	}
-	@DeleteMapping("/{usuarioId}/borra")
+	@DeleteMapping("/{usuarioId}/borrar")
 	public ResponseEntity<ApiRespuesta> eliminaUsuario(@PathVariable Long usuarioId){
 		try {
 			usuarioServicio.borrarUsuario(usuarioId);
-			return ResponseEntity.ok(new ApiRespuesta("Usuario borrado", null));
+			return ResponseEntity.ok(new ApiRespuesta("Usuario eliminado!", null));
 		} catch (RecursoNoEncontradoEx e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiRespuesta(e.getMessage(),null));
 		}
