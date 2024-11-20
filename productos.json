@@ -46,3 +46,27 @@
 	    "descripcion" : "lavado turbo",
 	    "stock" : "20"
 }
+{
+	"nombre" : "remera",
+		    "marca" : "ADIDAS",
+		    "precio" : "120",
+		    "categoria" : "ropa",
+		    "descripcion" : "remera original",
+		    "stock" : "15"
+}
+{
+	"nombre" : "zapatilla",
+		    "marca" : "REBOOK",
+		    "precio" : "110",
+		    "categoria" : "ropa",
+		    "descripcion" : "zapatillas de color rojo",
+		    "stock" : "10"
+}
+{
+	"nombre" : "repelente",
+		    "marca" : "OFF",
+		    "precio" : "80",
+		    "categoria" : "salud",
+		    "descripcion" : "repelente contra mosquitos",
+		    "stock" : "20"
+}
