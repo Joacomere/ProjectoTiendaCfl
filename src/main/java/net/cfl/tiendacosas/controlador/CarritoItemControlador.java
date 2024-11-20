@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import net.cfl.tiendacosas.excepciones.RecursoNoEncontradoEx;
+import net.cfl.tiendacosas.modelo.Carrito;
 import net.cfl.tiendacosas.modelo.CarritoItem;
+import net.cfl.tiendacosas.modelo.Usuario;
 import net.cfl.tiendacosas.respuesta.ApiRespuesta;
 import net.cfl.tiendacosas.servicios.carrito.ICarritoItemServicio;
 import net.cfl.tiendacosas.servicios.carrito.ICarritoServicio;
+import net.cfl.tiendacosas.servicios.usuario.IUsuarioServicio;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,13 +27,14 @@ import net.cfl.tiendacosas.servicios.carrito.ICarritoServicio;
 public class CarritoItemControlador {
 	private final ICarritoItemServicio carritoItemServicio;
 	private final ICarritoServicio carritoServicio;
+	private final IUsuarioServicio usuarioServicio;
 	@PostMapping("/item/agrega")
-	public ResponseEntity<ApiRespuesta> agregaItemAlCarrito(@RequestParam(required = false) Long carritoId,@RequestParam Long productoId,@RequestParam Integer cantidad){
+	public ResponseEntity<ApiRespuesta> agregaItemAlCarrito(@RequestParam Long productoId,@RequestParam Integer cantidad){
 		try {
-			if(carritoId == null) {
-				carritoId = carritoServicio.inicializaCarrito();
-			}
-			carritoItemServicio.agregaItemAlCarrito(carritoId, productoId, cantidad);
+				Usuario usuario = usuarioServicio.traeUsuarioPorId(1L);
+				Carrito carrito = carritoServicio.inicializaCarrito(usuario);
+			
+			carritoItemServicio.agregaItemAlCarrito(carrito.getId(), productoId, cantidad);
 			return ResponseEntity.ok(new ApiRespuesta("Item agregado con exito", null));
 		} catch (RecursoNoEncontradoEx e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiRespuesta(e.getMessage(),null));

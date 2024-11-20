@@ -1,7 +1,7 @@
 package net.cfl.tiendacosas.servicios.carrito;
 
 import java.math.BigDecimal;
-
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.cfl.tiendacosas.excepciones.RecursoNoEncontradoEx;
 import net.cfl.tiendacosas.modelo.Carrito;
+import net.cfl.tiendacosas.modelo.Usuario;
 import net.cfl.tiendacosas.repositorio.CarritoItemRepositorio;
 import net.cfl.tiendacosas.repositorio.CarritoRepositorio;
 @Service
@@ -44,11 +45,14 @@ public class CarritoServicio implements ICarritoServicio{
 	 * del usuario, solo lo aplicamos para probar la api en esta etapa donde todavia no implementamos los usuarios
 	 */
 	@Override
-	public Long inicializaCarrito() {
-		Carrito nuevoCarrito = new Carrito();
-		Long nuevoCarritoId = generadorId.incrementAndGet();
-		nuevoCarrito.setId(nuevoCarritoId);
-		return carritoRepositorio.save(nuevoCarrito).getId();
+	public Carrito inicializaCarrito(Usuario usuario) {
+		
+		return Optional.ofNullable(traeCarritoPorUsuarioId(usuario.getId()))
+				.orElseGet(() -> {
+					Carrito carrito = new Carrito();
+					carrito.setUsuario(usuario);
+					return carritoRepositorio.save(carrito);
+				});
 	}
 	
 	@Override
