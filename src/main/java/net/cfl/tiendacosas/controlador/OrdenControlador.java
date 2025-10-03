@@ -45,7 +45,7 @@ public class OrdenControlador {
 		}
 	}
 	
-	@GetMapping("/{usuarioId}/orden")
+	@GetMapping("usuario/{usuarioId}/orden")
 	public ResponseEntity<ApiRespuesta> traeOrdenUsuario(@PathVariable Long usuarioId){
 		try {
 			List<OrdenDto> orden = ordenServicio.traeUsuarioOrdenes(usuarioId);
