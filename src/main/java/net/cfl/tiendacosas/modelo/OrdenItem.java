@@ -24,7 +24,7 @@ public class OrdenItem {
 	
 	@ManyToOne
 	@JoinColumn(name = "orden_id")
-	private Orden orden;
+	private Long ordenId;
 	
 	@ManyToOne
 	@JoinColumn(name = "producto_id")
@@ -32,8 +32,8 @@ public class OrdenItem {
 	private int cantidad;
 	private BigDecimal precio;
 	
-	public OrdenItem(Orden orden, Producto producto, int cantidad, BigDecimal precio) {
-		this.orden = orden;
+	public OrdenItem(Long ordenId, Producto producto, int cantidad, BigDecimal precio) {
+		this.ordenId = ordenId;
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.precio = precio;

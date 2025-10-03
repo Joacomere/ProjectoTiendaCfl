@@ -34,7 +34,8 @@ public class OrdenServicio implements IOrdenServicio {
 	public Orden realizaOrden(Long usuarioId) {
 		Carrito carrito = carritoServicio.traeCarritoPorUsuarioId(usuarioId);
 		Orden orden = crearOrden(carrito);
-		List<OrdenItem> listaDeItemsOrden = crearOrdenItem(orden, carrito);
+		long ordenId = orden.getId();
+		List<OrdenItem> listaDeItemsOrden = crearOrdenItem(ordenId, carrito);
 		orden.setOrdenItems(new HashSet<>(listaDeItemsOrden));
 		orden.setMontoTotal(calculaMontoTotal(listaDeItemsOrden));
 		Orden ordenGuardada = ordenRepositorio.save(orden);
@@ -42,13 +43,13 @@ public class OrdenServicio implements IOrdenServicio {
 		return ordenGuardada;
 	}
 	
-	private List<OrdenItem> crearOrdenItem(Orden orden, Carrito carrito){
+	private List<OrdenItem> crearOrdenItem(Long ordenId, Carrito carrito){
 		
 		return carrito.getCarritoItems().stream().map(carritoItem -> {
 			Producto producto = carritoItem.getProducto();
 			producto.setStock(producto.getStock() - carritoItem.getCantidad());
 			productoRepositorio.save(producto);
-			return new OrdenItem(orden,producto,carritoItem.getCantidad(),carritoItem.getPrecioUni());
+			return new OrdenItem(ordenId,producto,carritoItem.getCantidad(),carritoItem.getPrecioUni());
 		}).toList();
 	}
 	

@@ -7,7 +7,7 @@ import net.cfl.tiendacosas.modelo.Orden;
 import net.cfl.tiendacosas.modelo.Producto;
 @Data
 public class OrdenItemDto {
-private Orden orden;
+	private Long ordenId;
 	
 	private Long id;
 	private Producto producto;
